@@ -115,5 +115,19 @@ RSpec.describe 'Books by location' do
       expect(error).to have_key :errors
       expect(error[:errors]).to eq('Quantity must be an integer greater than 0')
     end
+
+    it 'no location returns error', :vcr do
+      quantity = 5
+      get "/api/v1/book-search?quantity=#{quantity}"
+
+      expect(response.status).to eq(400)
+      expect(response.server_error?).to eq(false)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to be_a Hash
+      expect(error).to have_key :errors
+      expect(error[:errors]).to eq('No location found')
+    end
   end
 end
