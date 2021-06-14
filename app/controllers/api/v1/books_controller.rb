@@ -3,7 +3,7 @@ class API::V1::BooksController < ApplicationController
     location = params[:location]
     quantity = params[:quantity].to_i
 
-    if location.present? && quantity.present? && quantity.class == Integer && quantity > 0
+    if location.present? && quantity.present? && (quantity.is_a? Integer) && quantity > 0
       books = BookFacade.find_books(location, quantity)
       render json: BooksSerializer.new(books)
     elsif location.nil?
