@@ -4,7 +4,7 @@ class LibraryFacade
       data = LibraryService.find_books(location)
       data[:docs] = data[:docs][0..(quantity.to_i - 1)]
       
-      Library.new(data)
+      Library.new(data, location)
     end
   end
 end
