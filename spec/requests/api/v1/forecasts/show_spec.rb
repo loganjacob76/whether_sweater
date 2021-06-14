@@ -106,4 +106,19 @@ RSpec.describe 'City Forecast' do
       end
     end
   end
+  
+  describe 'SAD Path' do
+    it 'no location returns error', :vcr do
+      get '/api/v1/forecast'
+
+      expect(response.status).to eq(400)
+      expect(response.server_error?).to eq(false)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to be_a Hash
+      expect(error).to have_key :errors
+      expect(error[:errors]).to eq('No location found')
+    end
+  end
 end
