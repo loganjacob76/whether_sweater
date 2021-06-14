@@ -1,4 +1,4 @@
-class Library
+class Book
   attr_reader :id,
               :destination,
               :total_books_found

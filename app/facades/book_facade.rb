@@ -1,10 +1,10 @@
-class LibraryFacade
+class BookFacade
   class << self
     def find_books(location, quantity)
-      data = LibraryService.find_books(location)
+      data = BookService.find_books(location)
       data[:docs] = data[:docs][0..(quantity.to_i - 1)]
       
-      Library.new(data, location)
+      Book.new(data, location)
     end
   end
 end

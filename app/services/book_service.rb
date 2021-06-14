@@ -1,4 +1,4 @@
-class LibraryService
+class BookService
   class << self
     def find_books(location)
       resp = conn.get('/search.json') do |faraday|
