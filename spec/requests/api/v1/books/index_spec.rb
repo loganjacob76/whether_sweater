@@ -70,4 +70,50 @@ RSpec.describe 'Books by location' do
       end
     end
   end
+
+  describe 'SAD PATH' do
+    it 'non integer quantity returns error', :vcr do
+      location = 'denver, co'
+      quantity = 'fail'
+      get "/api/v1/book-search?location=#{location}&quantity=#{quantity}"
+
+      expect(response.status).to eq(400)
+      expect(response.server_error?).to eq(false)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to be_a Hash
+      expect(error).to have_key :errors
+      expect(error[:errors]).to eq('Quantity must be an integer greater than 0')
+    end
+
+    it 'quantity less than 0 returns error', :vcr do
+      location = 'denver, co'
+      quantity = 'fail'
+      get "/api/v1/book-search?location=#{location}&quantity=#{quantity}"
+
+      expect(response.status).to eq(400)
+      expect(response.server_error?).to eq(false)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to be_a Hash
+      expect(error).to have_key :errors
+      expect(error[:errors]).to eq('Quantity must be an integer greater than 0')
+    end
+
+    it 'no quantity returns error' do
+      location = 'denver, co'
+      get "/api/v1/book-search?location=#{location}"
+
+      expect(response.status).to eq(400)
+      expect(response.server_error?).to eq(false)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to be_a Hash
+      expect(error).to have_key :errors
+      expect(error[:errors]).to eq('Quantity must be an integer greater than 0')
+    end
+  end
 end
