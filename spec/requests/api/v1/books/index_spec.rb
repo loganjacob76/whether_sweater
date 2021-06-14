@@ -27,10 +27,13 @@ RSpec.describe 'Books by location' do
 
       expect(bdata[:attributes]).to have_key(:destination)
       expect(bdata[:attributes][:destination]).to be_a String
-      expect(bdata[:attributes]).to have_key(:Forecast)
-      expect(bdata[:attributes][:Forecast]).to be_a Hash
+
+      expect(bdata[:attributes]).to have_key(:forecast)
+      expect(bdata[:attributes][:forecast]).to be_a Hash
+
       expect(bdata[:attributes]).to have_key(:total_books_found)
       expect(bdata[:attributes][:total_books_found]).to be_a Integer
+
       expect(bdata[:attributes]).to have_key(:books)
       expect(bdata[:attributes][:books]).to be_a Array
 
@@ -42,6 +45,15 @@ RSpec.describe 'Books by location' do
 
       expect(forecast).to have_key(:temperature)
       expect(forecast[:temperature]).to be_a String
+
+      expect(forecast).to_not have_key(:datetime)
+      expect(forecast).to_not have_key(:sunrise)
+      expect(forecast).to_not have_key(:sunset)
+      expect(forecast).to_not have_key(:feels_like)
+      expect(forecast).to_not have_key(:humidity)
+      expect(forecast).to_not have_key(:uvi)
+      expect(forecast).to_not have_key(:visibility)
+      expect(forecast).to_not have_key(:icon)
 
       expect(all_books.count).to eq(5)
       all_books.each do |book|
