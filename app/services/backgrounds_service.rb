@@ -7,9 +7,9 @@ class BackgroundsService
       end
       parse_json(resp)
     end
-    
+
     private
-    
+
     def conn
       Faraday.new(url: 'https://api.unsplash.com/') do |faraday|
         faraday.params['client_id'] = ENV['unsplash_key']

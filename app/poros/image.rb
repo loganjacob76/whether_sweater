@@ -1,6 +1,6 @@
 class Image
   attr_reader :id
-  
+
   def initialize(data, location)
     @id = nil
     @location = location

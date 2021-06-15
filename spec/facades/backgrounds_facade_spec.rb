@@ -5,7 +5,7 @@ RSpec.describe BackgroundsFacade do
     @facade = BackgroundsFacade.find_image('denver, co')
   end
 
-  describe 'class methods' do
+  describe 'class methods', :vcr do
     it 'returns an image poro' do
       expect(@facade).to be_a Image
     end
