@@ -1,7 +1,7 @@
 class Forecast
   attr_reader :current_weather,
               :id
-  
+
   def initialize(data)
     @id = nil
     @current_weather = current_format(data[:current])
@@ -23,9 +23,9 @@ class Forecast
 
   def current_format(hash)
     {
-      datetime: Time.at(hash[:dt]),
-      sunrise: Time.at(hash[:sunrise]),
-      sunset: Time.at(hash[:sunset]),
+      datetime: Time.zone.at(hash[:dt]),
+      sunrise: Time.zone.at(hash[:sunrise]),
+      sunset: Time.zone.at(hash[:sunset]),
       temperature: hash[:temp],
       feels_like: hash[:feels_like],
       humidity: hash[:humidity],
@@ -38,9 +38,9 @@ class Forecast
 
   def daily_format(hash)
     {
-      date: Time.at(hash[:dt]).strftime('%Y-%m-%d'),
-      sunrise: Time.at(hash[:sunrise]),
-      sunset: Time.at(hash[:sunset]),
+      date: Time.zone.at(hash[:dt]).strftime('%Y-%m-%d'),
+      sunrise: Time.zone.at(hash[:sunrise]),
+      sunset: Time.zone.at(hash[:sunset]),
       max_temp: hash[:temp][:max],
       min_temp: hash[:temp][:min],
       conditions: hash[:weather].first[:description],
@@ -50,7 +50,7 @@ class Forecast
 
   def hourly_format(hash)
     {
-      time: Time.at(hash[:dt]).strftime('%T'),
+      time: Time.zone.at(hash[:dt]).strftime('%T'),
       temperature: hash[:temp],
       conditions: hash[:weather].first[:description],
       icon: hash[:weather].first[:icon]

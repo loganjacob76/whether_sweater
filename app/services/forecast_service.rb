@@ -9,9 +9,9 @@ class ForecastService
       end
       parse_json(resp)
     end
-    
+
     private
-    
+
     def conn
       Faraday.new(url: 'http://api.openweathermap.org') do |faraday|
         faraday.params['appid'] = ENV['openweather_key']
