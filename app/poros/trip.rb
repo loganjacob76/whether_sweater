@@ -9,7 +9,7 @@ class Trip
     @start_city = origin
     @end_city = destination
     @travel_time = data[:formattedTime].present? ? data[:formattedTime] : 'impossible'
-    @real_time = data[:legs].first[:time] if data[:legs]
+    @real_time = data[:time] if data[:time].present?
   end
 
   def weather_at_eta
