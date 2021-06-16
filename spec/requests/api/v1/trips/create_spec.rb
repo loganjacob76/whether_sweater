@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'sessions controller' do
+RSpec.describe 'trips controller' do
   before :each do
     User.create(email: 'test@test.edu', password: 'test', password_confirmation: 'test', api_key: 'sad5g6as5d4g165awe16')
   end

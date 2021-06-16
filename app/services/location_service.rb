@@ -6,7 +6,7 @@ class LocationService
       end
       parse_json(resp)
     end
-    
+
     def road_trip(origin, destination)
       resp = conn.get('/directions/v2/route') do |faraday|
         faraday.params['from'] = origin
@@ -14,10 +14,10 @@ class LocationService
       end
       parse_json(resp)
     end
-      
-      private
-      
-      def conn
+
+    private
+
+    def conn
       Faraday.new(url: 'http://www.mapquestapi.com') do |faraday|
         faraday.params['key'] = ENV['mapquest_key']
       end
