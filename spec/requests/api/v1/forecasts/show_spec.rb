@@ -54,7 +54,7 @@ RSpec.describe 'City Forecast' do
       expect(current[:humidity]).to be_a Integer
 
       expect(current).to have_key(:uvi)
-      expect(current[:uvi]).to be_a Float
+      expect(current[:uvi]).to be_a Integer
 
       expect(current).to have_key(:visibility)
       expect(current[:visibility]).to be_a Integer

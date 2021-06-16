@@ -6,7 +6,7 @@ class Forecast
     @id = nil
     @current_weather = current_format(data[:current])
     @daily = data[:daily][0..4]
-    @hourly = data[:hourly][0..7]
+    @hourly = data[:hourly]
   end
 
   def daily_weather
@@ -16,6 +16,12 @@ class Forecast
   end
 
   def hourly_weather
+    @hourly[1..8].map do |hour|
+      hourly_format(hour)
+    end
+  end
+
+  def trip_weather
     @hourly.map do |hour|
       hourly_format(hour)
     end
@@ -23,9 +29,9 @@ class Forecast
 
   def current_format(hash)
     {
-      datetime: Time.zone.at(hash[:dt]),
-      sunrise: Time.zone.at(hash[:sunrise]),
-      sunset: Time.zone.at(hash[:sunset]),
+      datetime: Time.at(hash[:dt]),
+      sunrise: Time.at(hash[:sunrise]),
+      sunset: Time.at(hash[:sunset]),
       temperature: hash[:temp],
       feels_like: hash[:feels_like],
       humidity: hash[:humidity],
@@ -38,9 +44,9 @@ class Forecast
 
   def daily_format(hash)
     {
-      date: Time.zone.at(hash[:dt]).strftime('%Y-%m-%d'),
-      sunrise: Time.zone.at(hash[:sunrise]),
-      sunset: Time.zone.at(hash[:sunset]),
+      date: Time.at(hash[:dt]).strftime('%Y-%m-%d'),
+      sunrise: Time.at(hash[:sunrise]),
+      sunset: Time.at(hash[:sunset]),
       max_temp: hash[:temp][:max],
       min_temp: hash[:temp][:min],
       conditions: hash[:weather].first[:description],
@@ -50,7 +56,7 @@ class Forecast
 
   def hourly_format(hash)
     {
-      time: Time.zone.at(hash[:dt]).strftime('%T'),
+      time: Time.at(hash[:dt]).strftime('%T'),
       temperature: hash[:temp],
       conditions: hash[:weather].first[:description],
       icon: hash[:weather].first[:icon]
